@@ -9,7 +9,12 @@ public enum AirErrorCode {
     /**
      * <h2>成功</h2>
      */
-    SUCCESS(200);
+    SUCCESS(200),
+
+    /**
+     * <h2>服务发生异常</h2>
+     */
+    SERVICE_ERROR(500);
 
     /**
      * <h2>错误代码</h2>

@@ -3,9 +3,8 @@ package cn.hamm.sdk.common.enums;
 /**
  * <h1>应用加密方式</h1>
  *
- * @author Hamm
+ * @author Hamm.cn
  */
-
 public enum AirArithmetic {
     /**
      * <h2>AES算法</h2>

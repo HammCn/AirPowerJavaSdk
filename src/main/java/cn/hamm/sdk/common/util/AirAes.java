@@ -3,8 +3,9 @@ package cn.hamm.sdk.common.util;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * <h1>AirPower AES</h1>
@@ -30,7 +31,7 @@ public class AirAes {
     /**
      * <h2>偏移向量</h2>
      */
-    private static final byte[] IV = "0000000000000000".getBytes(StandardCharsets.UTF_8);
+    private static final byte[] IV = "0000000000000000".getBytes(UTF_8);
 
     /**
      * <h2>算法</h2>
@@ -67,7 +68,9 @@ public class AirAes {
      */
     public final String encrypt(String source) {
         try {
-            return Base64.getEncoder().encodeToString(getCipher(Cipher.ENCRYPT_MODE).doFinal(source.getBytes(StandardCharsets.UTF_8)));
+            byte[] bytes = source.getBytes(UTF_8);
+            Cipher cipher = getCipher(Cipher.ENCRYPT_MODE);
+            return Base64.getEncoder().encodeToString(cipher.doFinal(bytes));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -81,7 +84,9 @@ public class AirAes {
      */
     public final String decrypt(String content) {
         try {
-            return new String(getCipher(Cipher.DECRYPT_MODE).doFinal(Base64.getDecoder().decode(content)), StandardCharsets.UTF_8);
+            Cipher cipher = getCipher(Cipher.DECRYPT_MODE);
+            byte[] decodeContent = Base64.getDecoder().decode(content);
+            return new String(cipher.doFinal(decodeContent), UTF_8);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -3,6 +3,8 @@ package cn.hamm.sdk.common.base;
 import cn.hamm.sdk.common.enums.AirErrorCode;
 import cn.hamm.sdk.common.util.*;
 
+import java.util.Objects;
+
 /**
  * <h1>AirPower Client</h1>
  *
@@ -106,6 +108,9 @@ public class AirClient {
      * @see AirConfig#create()
      */
     public static AirClient create(AirConfig config) {
+        if (Objects.isNull(config)) {
+            throw new IllegalArgumentException("无效的AirConfig配置");
+        }
         AirClient client = new AirClient();
         client.config = config;
         return client;

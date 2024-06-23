@@ -1,5 +1,7 @@
 package cn.hamm.sdk.common.base;
 
+import cn.hamm.sdk.common.enums.AirErrorCode;
+
 /**
  * <h1>异常</h1>
  *
@@ -9,7 +11,7 @@ public class AirException extends RuntimeException {
     /**
      * <h2>状态码</h2>
      */
-    private int code = AirConstant.ERROR_CODE;
+    private int code = AirErrorCode.SERVICE_ERROR.getCode();
 
     /**
      * <h2>获取状态码</h2>

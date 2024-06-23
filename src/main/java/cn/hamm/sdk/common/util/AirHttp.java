@@ -1,5 +1,6 @@
 package cn.hamm.sdk.common.util;
 
+import cn.hamm.sdk.common.enums.AirErrorCode;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -9,6 +10,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * <h1>HTTP</h1>
@@ -16,6 +18,11 @@ import java.io.IOException;
  * @author Hamm.cn
  */
 public class AirHttp {
+    /**
+     * <h2>Json请求头</h2>
+     */
+    public static final String APPLICATION_JSON = "application/json";
+
     /**
      * <h2>发起Post请求</h2>
      *
@@ -27,19 +34,17 @@ public class AirHttp {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(url);
             StringEntity entity = new StringEntity(json);
-            entity.setContentType("application/json");
+            entity.setContentType(APPLICATION_JSON);
             httpPost.setEntity(entity);
-            httpPost.setHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
-            try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
-                if (response.getStatusLine().getStatusCode() == 200) {
-                    HttpEntity responseEntity = response.getEntity();
-                    if (responseEntity != null) {
-                        return EntityUtils.toString(responseEntity);
+            try (CloseableHttpResponse httpResponse = httpClient.execute(httpPost)) {
+                if (httpResponse.getStatusLine().getStatusCode() == AirErrorCode.SUCCESS.getCode()) {
+                    HttpEntity response = httpResponse.getEntity();
+                    if (Objects.nonNull(response)) {
+                        return EntityUtils.toString(response);
                     }
-                    throw new RuntimeException("Response is null");
+                    throw new RuntimeException("服务器未返回数据，请联系技术支持");
                 }
-                throw new RuntimeException("Response status code is not 200");
+                throw new RuntimeException("服务器返回异常，请联系技术支持");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
