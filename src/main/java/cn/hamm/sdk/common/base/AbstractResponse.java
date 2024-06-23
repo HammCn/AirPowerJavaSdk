@@ -6,5 +6,5 @@ package cn.hamm.sdk.common.base;
  * @param <R> 响应模型
  * @author Hamm.cn
  */
-public abstract class AbstractAirResponse<R extends AbstractAirResponse<R>> {
+public abstract class AbstractResponse<R extends AbstractResponse<R>> {
 }

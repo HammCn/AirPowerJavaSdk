@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * <h1>随机助手类</h1>
+ * <h1>Air Random</h1>
  *
  * @author Hamm.cn
  */
-public class Random {
+public class AirRandom {
     /**
      * <h2>小写字母</h2>
      */

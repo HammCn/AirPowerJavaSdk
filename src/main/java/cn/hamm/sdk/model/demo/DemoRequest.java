@@ -1,8 +1,8 @@
 package cn.hamm.sdk.model.demo;
 
-import cn.hamm.sdk.common.base.AbstractAirRequest;
+import cn.hamm.sdk.common.base.AbstractRequest;
 
-public class DemoRequest extends AbstractAirRequest<DemoResponse> {
+public class DemoRequest extends AbstractRequest<DemoResponse> {
     private String name;
 
     private Integer age;

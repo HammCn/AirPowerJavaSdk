@@ -8,7 +8,7 @@ import java.lang.reflect.ParameterizedType;
  * @param <R> 响应模型
  * @author Hamm.cn
  */
-public abstract class AbstractAirRequest<R extends AbstractAirResponse<R>> {
+public abstract class AbstractRequest<R extends AbstractResponse<R>> {
     /**
      * <h2>API地址</h2>
      *

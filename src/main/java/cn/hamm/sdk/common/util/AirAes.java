@@ -7,11 +7,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 /**
- * <h1>AES助手</h1>
+ * <h1>AirPower AES</h1>
  *
  * @author Hamm.cn
  */
-public class Aes {
+public class AirAes {
     /**
      * <h2>AES</h2>
      */
@@ -43,7 +43,7 @@ public class Aes {
      * @param algorithm 算法
      * @return AesUtil
      */
-    public Aes setAlgorithm(String algorithm) {
+    public AirAes setAlgorithm(String algorithm) {
         this.algorithm = algorithm;
         return this;
     }
@@ -54,7 +54,7 @@ public class Aes {
      * @param key 密钥
      * @return AesUtil
      */
-    public Aes setKey(String key) {
+    public AirAes setKey(String key) {
         this.key = Base64.getDecoder().decode(key);
         return this;
     }
@@ -110,7 +110,7 @@ public class Aes {
      *
      * @return AES
      */
-    public static Aes create() {
-        return new Aes();
+    public static AirAes create() {
+        return new AirAes();
     }
 }

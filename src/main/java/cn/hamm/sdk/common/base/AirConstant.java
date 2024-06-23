@@ -19,7 +19,7 @@ public class AirConstant {
     /**
      * <h2>本地网关</h2>
      */
-    public static final String GATEWAY_LOCAL = "http://127.0.0.1:8888/open/";
+    public static final String GATEWAY_LOCAL = "http://127.0.0.1:8080/openApi/";
 
     /**
      * <h2>基本错误代码</h2>

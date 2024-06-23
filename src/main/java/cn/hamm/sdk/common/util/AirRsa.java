@@ -7,11 +7,11 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 /**
- * <h1>RSA加解密助手类</h1>
+ * <h1>Air RSA</h1>
  *
  * @author Hamm.cn
  */
-public class Rsa {
+public class AirRsa {
     /**
      * <h2>加密算法KEY长度</h2>
      */
@@ -32,8 +32,8 @@ public class Rsa {
      *
      * @return RSA
      */
-    public static Rsa create() {
-        return new Rsa();
+    public static AirRsa create() {
+        return new AirRsa();
     }
 
     /**
@@ -42,7 +42,7 @@ public class Rsa {
      * @param publicKey 公钥
      * @return 实例
      */
-    public final Rsa setPublicKey(String publicKey) {
+    public final AirRsa setPublicKey(String publicKey) {
         this.publicKey = publicKey;
         return this;
     }

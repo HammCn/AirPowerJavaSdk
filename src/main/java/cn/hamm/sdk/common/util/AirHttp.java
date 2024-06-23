@@ -15,7 +15,7 @@ import java.io.IOException;
  *
  * @author Hamm.cn
  */
-public class Http {
+public class AirHttp {
     /**
      * <h2>发起Post请求</h2>
      *
