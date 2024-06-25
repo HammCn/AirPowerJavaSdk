@@ -34,7 +34,11 @@ public class AirClient {
                 .setContent(encrypt(request));
         airRequest.sign(config.getAppSecret());
         final String body = AirJson.toString(airRequest);
-        String response = AirHttp.post(config.getGateway() + request.getApiUrl(), body);
+        final String url = config.getGateway() + request.getApiUrl();
+        AirDebug.show("请求地址", url);
+        AirDebug.show("请求包体", body);
+        String response = AirHttp.post(url, body);
+        AirDebug.show("响应包体", response);
         AirJson<?> airJson = AirJson.parse(response, AirJson.class);
         if (AirErrorCode.SUCCESS.getCode() != airJson.getCode()) {
             throw new AirException(airJson.getCode(), airJson.getMessage());
@@ -51,6 +55,9 @@ public class AirClient {
      */
     public final <RES extends AbstractResponse<RES>> RES decrypt(String content, Class<RES> targetClass) {
         content = decrypt(content);
+        if (Objects.isNull(content)) {
+            return null;
+        }
         return AirJson.parse(content, targetClass);
     }
 
@@ -61,6 +68,9 @@ public class AirClient {
      * @return 解密后的字符串
      */
     public final String decrypt(String content) {
+        if (Objects.isNull(content)) {
+            return null;
+        }
         switch (config.getArithmetic()) {
             case RSA:
                 content = AirRsa.create().setPublicKey(config.getAppSecret()).decrypt(content);
@@ -80,6 +90,9 @@ public class AirClient {
      * @return 加密后的内容
      */
     public final <REQ extends AbstractRequest<RES>, RES extends AbstractResponse<RES>> String encrypt(REQ request) {
+        if (Objects.isNull(request)) {
+            return null;
+        }
         return encrypt(AirJson.toString(request));
     }
 
@@ -90,6 +103,9 @@ public class AirClient {
      * @return 加密后的内容
      */
     public final String encrypt(String content) {
+        if (Objects.isNull(content)) {
+            return null;
+        }
         switch (config.getArithmetic()) {
             case RSA:
                 content = AirRsa.create().setPublicKey(config.getPublicKey()).encrypt(content);
