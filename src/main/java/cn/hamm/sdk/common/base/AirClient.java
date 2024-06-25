@@ -64,6 +64,7 @@ public class AirClient {
         switch (config.getArithmetic()) {
             case RSA:
                 content = AirRsa.create().setPublicKey(config.getAppSecret()).decrypt(content);
+                break;
             case AES:
                 content = AirAes.create().setKey(config.getAppSecret()).decrypt(content);
                 break;
@@ -92,6 +93,7 @@ public class AirClient {
         switch (config.getArithmetic()) {
             case RSA:
                 content = AirRsa.create().setPublicKey(config.getPublicKey()).encrypt(content);
+                break;
             case AES:
                 content = AirAes.create().setKey(config.getAppSecret()).encrypt(content);
                 break;
