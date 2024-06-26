@@ -1,5 +1,6 @@
 package cn.hamm.sdk.common.base;
 
+import cn.hamm.sdk.common.util.AirDebug;
 import cn.hamm.sdk.common.util.AirRandom;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -163,12 +164,13 @@ public class AirRequest {
      * <h2>签名</h2>
      *
      * @param appSecret AppSecret
-     * @return AirRequest
      */
-    public final AirRequest sign(String appSecret) {
-        final String source = appSecret + getAppKey() + getVersion() + getTimestamp() + getNonce() + getContent();
-        System.out.println(source);
+    public final void sign(String appSecret) {
+        String[] strings = new String[]{appSecret, getAppKey(), String.valueOf(getVersion()), String.valueOf(getTimestamp()), getNonce(), getContent()};
+        final String source = String.join("", strings);
+        AirDebug.show("签名数据", source);
+        AirDebug.show("签名数据(可读)", String.join("  ", strings));
         this.signature = DigestUtils.sha1Hex(source);
-        return this;
+        AirDebug.show("签名结果", this.signature);
     }
 }
