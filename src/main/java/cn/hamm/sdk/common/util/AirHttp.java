@@ -1,9 +1,10 @@
 package cn.hamm.sdk.common.util;
 
-import cn.hamm.sdk.common.enums.AirErrorCode;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -19,11 +20,6 @@ import java.util.Objects;
  */
 public class AirHttp {
     /**
-     * <h2>Json请求头</h2>
-     */
-    public static final String APPLICATION_JSON = "application/json";
-
-    /**
      * <h2>发起Post请求</h2>
      *
      * @param url  URL
@@ -34,10 +30,10 @@ public class AirHttp {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(url);
             StringEntity entity = new StringEntity(json);
-            entity.setContentType(APPLICATION_JSON);
+            entity.setContentType(ContentType.APPLICATION_JSON.getMimeType());
             httpPost.setEntity(entity);
             try (CloseableHttpResponse httpResponse = httpClient.execute(httpPost)) {
-                if (httpResponse.getStatusLine().getStatusCode() == AirErrorCode.SUCCESS.getCode()) {
+                if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                     HttpEntity response = httpResponse.getEntity();
                     if (Objects.nonNull(response)) {
                         return EntityUtils.toString(response);
