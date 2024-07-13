@@ -1,8 +1,12 @@
 package cn.hamm.sdk.common.base;
 
 import cn.hamm.sdk.common.enums.AirErrorCode;
-import cn.hamm.sdk.common.util.*;
+import cn.hamm.sdk.common.util.AirAes;
+import cn.hamm.sdk.common.util.AirDebug;
+import cn.hamm.sdk.common.util.AirHttp;
+import cn.hamm.sdk.common.util.AirRsa;
 
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -28,7 +32,7 @@ public class AirClient {
      * @param request 请求对象
      * @return 响应对象
      */
-    public final <REQ extends AbstractRequest<RES>, RES extends AbstractResponse<RES>> RES request(REQ request) {
+    public final <REQ extends AbstractRequest<RES>, RES extends AirResponse<RES>> RES request(REQ request) {
         AirRequest airRequest = new AirRequest()
                 .setAppKey(config.getAppKey())
                 .setContent(encrypt(request));
@@ -39,11 +43,20 @@ public class AirClient {
         AirDebug.show("请求包体", body);
         String response = AirHttp.post(url, body);
         AirDebug.show("响应包体", response);
-        AirJson<?> airJson = AirJson.parse(response, AirJson.class);
-        if (AirErrorCode.SUCCESS.getCode() != airJson.getCode()) {
-            throw new AirException(airJson.getCode(), airJson.getMessage());
+        Map<String, Object> map = AirJson.parse2Map(response);
+        int code = (int) map.get("code");
+        String message = map.get("message").toString();
+        if (AirErrorCode.SUCCESS.getCode() != code) {
+            throw new AirException(code, message);
         }
-        return decrypt(airJson.getData(), request.getResponseClass());
+        String json = decrypt(map.get("data").toString());
+        AirDebug.show("解密包体", json);
+        try {
+            map.put("data", AirJson.parse2MapList(json));
+        } catch (Exception ignored) {
+            map.put("data", AirJson.parse2Map(json));
+        }
+        return AirJson.parse(AirJson.toString(map), request.getResponseClass());
     }
 
     /**
@@ -53,7 +66,7 @@ public class AirClient {
      * @param targetClass 目标类
      * @return 解密后的对象
      */
-    public final <RES extends AbstractResponse<RES>> RES decrypt(String content, Class<RES> targetClass) {
+    public final <RES> RES decrypt(String content, Class<RES> targetClass) {
         content = decrypt(content);
         if (Objects.isNull(content)) {
             return null;
@@ -89,7 +102,7 @@ public class AirClient {
      * @param request 请求对象
      * @return 加密后的内容
      */
-    public final <REQ extends AbstractRequest<RES>, RES extends AbstractResponse<RES>> String encrypt(REQ request) {
+    public final <REQ extends AbstractRequest<RES>, RES> String encrypt(REQ request) {
         if (Objects.isNull(request)) {
             return null;
         }

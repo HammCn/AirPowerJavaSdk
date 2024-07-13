@@ -1,7 +1,12 @@
-package cn.hamm.sdk.model.demo;
+package cn.hamm.sdk.module.demo;
 
 import cn.hamm.sdk.common.base.AbstractRequest;
 
+/**
+ * <h1>测试对象请求</h1>
+ *
+ * @author Hamm.cn
+ */
 public class DemoRequest extends AbstractRequest<DemoResponse> {
     private String name;
 
@@ -32,4 +37,5 @@ public class DemoRequest extends AbstractRequest<DemoResponse> {
     public void setAge(Integer age) {
         this.age = age;
     }
+
 }
