@@ -40,4 +40,13 @@ public class AirException extends RuntimeException {
     public AirException(int code, String message) {
         super(message);
     }
+
+    /**
+     * <h2>异常</h2>
+     *
+     * @param message 错误信息
+     */
+    public AirException(String message) {
+        super(message);
+    }
 }

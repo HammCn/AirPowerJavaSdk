@@ -6,7 +6,6 @@ import cn.hamm.sdk.common.util.AirDebug;
 import cn.hamm.sdk.common.util.AirHttp;
 import cn.hamm.sdk.common.util.AirRsa;
 
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -32,31 +31,8 @@ public class AirClient {
      * @param request 请求对象
      * @return 响应对象
      */
-    public final <REQ extends AbstractRequest<RES>, RES extends AirResponse<RES>> RES request(REQ request) {
-        AirRequest airRequest = new AirRequest()
-                .setAppKey(config.getAppKey())
-                .setContent(encrypt(request));
-        airRequest.sign(config.getAppSecret());
-        final String body = AirJson.toString(airRequest);
-        final String url = config.getGateway() + request.getApiUrl();
-        AirDebug.show("请求地址", url);
-        AirDebug.show("请求包体", body);
-        String response = AirHttp.post(url, body);
-        AirDebug.show("响应包体", response);
-        Map<String, Object> map = AirJson.parse2Map(response);
-        int code = (int) map.get("code");
-        String message = map.get("message").toString();
-        if (AirErrorCode.SUCCESS.getCode() != code) {
-            throw new AirException(code, message);
-        }
-        String json = decrypt(map.get("data").toString());
-        AirDebug.show("解密包体", json);
-        try {
-            map.put("data", AirJson.parse2MapList(json));
-        } catch (Exception ignored) {
-            map.put("data", AirJson.parse2Map(json));
-        }
-        return AirJson.parse(AirJson.toString(map), request.getResponseClass());
+    public final <REQ extends AbstractRequest<RES>, RES extends AbstractResponse<RES>> RES request(REQ request) {
+        return decrypt(sendRequest(request), request.getResponseClass());
     }
 
     /**
@@ -66,12 +42,18 @@ public class AirClient {
      * @param targetClass 目标类
      * @return 解密后的对象
      */
-    public final <RES> RES decrypt(String content, Class<RES> targetClass) {
+    public final <RES extends AbstractResponse<RES>> RES decrypt(String content, Class<RES> targetClass) {
         content = decrypt(content);
         if (Objects.isNull(content)) {
             return null;
         }
-        return AirJson.parse(content, targetClass);
+        try {
+            RES res = targetClass.newInstance();
+            return res.parseData(content);
+        } catch (InstantiationException | IllegalAccessException exception) {
+            AirDebug.show("创建对象失败", exception.getMessage());
+            throw new AirException(exception.getMessage());
+        }
     }
 
     /**
@@ -102,7 +84,7 @@ public class AirClient {
      * @param request 请求对象
      * @return 加密后的内容
      */
-    public final <REQ extends AbstractRequest<RES>, RES> String encrypt(REQ request) {
+    public final <REQ extends AbstractRequest<RES>, RES extends AbstractResponse<RES>> String encrypt(REQ request) {
         if (Objects.isNull(request)) {
             return null;
         }
@@ -145,5 +127,31 @@ public class AirClient {
         AirClient client = new AirClient();
         client.config = config;
         return client;
+    }
+
+    /**
+     * <h2>发起请求</h2>
+     *
+     * @param request 请求对象
+     * @param <RES>   响应类型
+     * @param <REQ>   请求类型
+     * @return 数据字符串
+     */
+    private <RES extends AbstractResponse<RES>, REQ extends AbstractRequest<RES>> String sendRequest(REQ request) {
+        AirRequest airRequest = new AirRequest()
+                .setAppKey(config.getAppKey())
+                .setContent(encrypt(request));
+        airRequest.sign(config.getAppSecret());
+        final String body = AirJson.toString(airRequest);
+        final String url = config.getGateway() + request.getApiUrl();
+        AirDebug.show("请求地址", url);
+        AirDebug.show("请求包体", body);
+        String response = AirHttp.post(url, body);
+        AirDebug.show("响应包体", response);
+        AirJson<?> airJson = AirJson.parse(response, AirJson.class);
+        if (AirErrorCode.SUCCESS.getCode() != airJson.getCode()) {
+            throw new AirException(airJson.getCode(), airJson.getMessage());
+        }
+        return airJson.getData();
     }
 }

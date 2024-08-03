@@ -1,4 +1,4 @@
-package cn.hamm.sdk.module.demo;
+package cn.hamm.sdk.module.demo.object;
 
 import cn.hamm.sdk.common.base.AbstractRequest;
 
