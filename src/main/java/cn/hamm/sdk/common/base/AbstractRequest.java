@@ -3,7 +3,7 @@ package cn.hamm.sdk.common.base;
 import java.lang.reflect.ParameterizedType;
 
 /**
- * <h1>请求基模型</h1>
+ * <h1>AbstractRequest</h1>
  *
  * @param <R> 响应模型
  * @author Hamm.cn

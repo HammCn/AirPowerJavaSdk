@@ -8,7 +8,7 @@ import java.util.Base64;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * <h1>AirPower AES</h1>
+ * <h1>AirAes</h1>
  *
  * @author Hamm.cn
  */
@@ -42,7 +42,7 @@ public class AirAes {
      * <h2>设置算法</h2>
      *
      * @param algorithm 算法
-     * @return AesUtil
+     * @return 当前实例
      */
     public AirAes setAlgorithm(String algorithm) {
         this.algorithm = algorithm;
@@ -53,7 +53,7 @@ public class AirAes {
      * <h2>设置密钥</h2>
      *
      * @param key 密钥
-     * @return AesUtil
+     * @return 当前实例
      */
     public AirAes setKey(String key) {
         this.key = Base64.getDecoder().decode(key);

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * <h1>{@code AirPower Json}</h1>
+ * <h1>AirJson</h1>
  *
  * @param <R> 响应模型
  * @author Hamm.cn
@@ -61,7 +61,7 @@ public class AirJson<R extends AirJson<R>> {
      * <h2>设置错误代码</h2>
      *
      * @param code 错误代码
-     * @return Response
+     * @return 当前实例
      */
     public AirJson<R> setCode(int code) {
         this.code = code;
@@ -81,7 +81,7 @@ public class AirJson<R extends AirJson<R>> {
      * <h2>设置错误信息</h2>
      *
      * @param message 错误信息
-     * @return Response
+     * @return 当前实例
      */
     public AirJson<R> setMessage(String message) {
         this.message = message;
@@ -122,7 +122,7 @@ public class AirJson<R extends AirJson<R>> {
      * <h2>设置响应数据</h2>
      *
      * @param data 响应数据
-     * @return Response
+     * @return 当前实例
      */
     public AirJson<R> setData(String data) {
         this.data = data;

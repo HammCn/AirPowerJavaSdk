@@ -7,7 +7,7 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 /**
- * <h1>Air RSA</h1>
+ * <h1>AirRsa</h1>
  *
  * @author Hamm.cn
  */
@@ -40,7 +40,7 @@ public class AirRsa {
      * <h2>设置公钥</h2>
      *
      * @param publicKey 公钥
-     * @return 实例
+     * @return 当前实例
      */
     public final AirRsa setPublicKey(String publicKey) {
         this.publicKey = publicKey;

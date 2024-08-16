@@ -3,7 +3,7 @@ package cn.hamm.sdk.common.base;
 import cn.hamm.sdk.common.enums.AirErrorCode;
 
 /**
- * <h1>异常</h1>
+ * <h1>AirException</h1>
  *
  * @author Hamm.cn
  */

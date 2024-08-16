@@ -3,7 +3,7 @@ package cn.hamm.sdk.common.base;
 import cn.hamm.sdk.common.enums.AirArithmetic;
 
 /**
- * <h1>AirPower Config</h1>
+ * <h1>AirConfig</h1>
  *
  * @author Hamm.cn
  * @apiNote 可在管理后台 -> 开放能力 -> 我的应用 中创建并获取相关配置

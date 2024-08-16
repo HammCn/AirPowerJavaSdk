@@ -9,7 +9,7 @@ import cn.hamm.sdk.common.util.AirRsa;
 import java.util.Objects;
 
 /**
- * <h1>AirPower Client</h1>
+ * <h1>AirClient</h1>
  *
  * @author Hamm.cn
  */

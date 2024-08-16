@@ -1,7 +1,7 @@
 package cn.hamm.sdk.common.util;
 
 /**
- * <h2>调试日志</h2>
+ * <h2>AirDebug</h2>
  *
  * @author Hamm.cn
  */

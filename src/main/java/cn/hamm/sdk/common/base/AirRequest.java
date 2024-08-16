@@ -5,7 +5,7 @@ import cn.hamm.sdk.common.util.AirRandom;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
- * <h1>模型基类</h1>
+ * <h1>AirRequest</h1>
  *
  * @author Hamm.cn
  */
@@ -19,7 +19,7 @@ public class AirRequest {
      * <h2>设置AppKey</h2>
      *
      * @param appKey AppKey
-     * @return AirRequest
+     * @return 当前实例
      */
     public final AirRequest setAppKey(String appKey) {
         this.appKey = appKey;
@@ -44,7 +44,7 @@ public class AirRequest {
      * <h2>设置版本号</h2>
      *
      * @param version 版本号
-     * @return AirRequest
+     * @return 当前实例
      */
     public final AirRequest setVersion(int version) {
         this.version = version;
@@ -69,7 +69,7 @@ public class AirRequest {
      * <h2>设置请求毫秒时间戳</h2>
      *
      * @param timestamp 请求毫秒时间戳
-     * @return AirRequest
+     * @return 当前实例
      */
     public final AirRequest setTimestamp(long timestamp) {
         this.timestamp = timestamp;
@@ -94,7 +94,7 @@ public class AirRequest {
      * <h2>设置加密后的业务数据</h2>
      *
      * @param content 加密后的业务数据
-     * @return AirRequest
+     * @return 当前实例
      */
     public final AirRequest setContent(String content) {
         this.content = content;
@@ -119,7 +119,7 @@ public class AirRequest {
      * <h2>设置Nonce</h2>
      *
      * @param nonce Nonce
-     * @return AirRequest
+     * @return 当前实例
      */
     public final AirRequest setNonce(String nonce) {
         this.nonce = nonce;
@@ -144,7 +144,7 @@ public class AirRequest {
      * <h2>设置签名字符串</h2>
      *
      * @param signature 签名字符串
-     * @return AirRequest
+     * @return 当前实例
      */
     public final AirRequest setSignature(String signature) {
         this.signature = signature;
