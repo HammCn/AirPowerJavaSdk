@@ -140,10 +140,10 @@ public class AirRsa {
     private byte[] rsaDoFinal(Cipher cipher, byte[] sourceBytes, int blockSize) throws Exception {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         int inputLength = sourceBytes.length;
-        int currentOffSet = 0;
         byte[] cacheBytes;
         int index = 0;
         // 对数据分段解密
+        int currentOffSet = 0;
         while (inputLength - currentOffSet > 0) {
             cacheBytes = cipher.doFinal(sourceBytes, currentOffSet, Math.min(inputLength - currentOffSet, blockSize));
             byteArrayOutputStream.write(cacheBytes, 0, cacheBytes.length);

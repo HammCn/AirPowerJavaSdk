@@ -14,24 +14,6 @@ public class AirException extends RuntimeException {
     private int code = AirErrorCode.SERVICE_ERROR.getCode();
 
     /**
-     * <h2>获取状态码</h2>
-     *
-     * @return 状态码
-     */
-    public int getCode() {
-        return code;
-    }
-
-    /**
-     * <h2>设置状态码</h2>
-     *
-     * @param code 状态码
-     */
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    /**
      * <h2>异常</h2>
      *
      * @param code    状态码
@@ -48,5 +30,23 @@ public class AirException extends RuntimeException {
      */
     public AirException(String message) {
         super(message);
+    }
+
+    /**
+     * <h2>获取状态码</h2>
+     *
+     * @return 状态码
+     */
+    public int getCode() {
+        return code;
+    }
+
+    /**
+     * <h2>设置状态码</h2>
+     *
+     * @param code 状态码
+     */
+    public void setCode(int code) {
+        this.code = code;
     }
 }

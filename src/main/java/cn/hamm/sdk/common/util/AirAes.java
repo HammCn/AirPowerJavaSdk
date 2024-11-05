@@ -24,19 +24,28 @@ public class AirAes {
     private static final String AES_CBC_PKCS5_PADDING = "AES/CBC/PKCS5Padding";
 
     /**
-     * <h2>密钥</h2>
-     */
-    private byte[] key;
-
-    /**
      * <h2>偏移向量</h2>
      */
     private static final byte[] IV = "0000000000000000".getBytes(UTF_8);
 
     /**
+     * <h2>密钥</h2>
+     */
+    private byte[] key;
+
+    /**
      * <h2>算法</h2>
      */
     private String algorithm = AES_CBC_PKCS5_PADDING;
+
+    /**
+     * <h2>初始化</h2>
+     *
+     * @return AES
+     */
+    public static AirAes create() {
+        return new AirAes();
+    }
 
     /**
      * <h2>设置算法</h2>
@@ -108,14 +117,5 @@ public class AirAes {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    /**
-     * <h2>初始化</h2>
-     *
-     * @return AES
-     */
-    public static AirAes create() {
-        return new AirAes();
     }
 }

@@ -18,6 +18,11 @@ import java.util.Objects;
  */
 public class AirJson<R extends AirJson<R>> {
     /**
+     * <h2>{@code ObjectMapper}</h2>
+     */
+    private static ObjectMapper objectMapper;
+
+    /**
      * <h2>错误代码</h2>
      */
     private int code;
@@ -46,6 +51,54 @@ public class AirJson<R extends AirJson<R>> {
         } catch (JsonProcessingException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    /**
+     * <h2>{@code Json} 反序列化到指定类</h2>
+     *
+     * @param json  字符串
+     * @param clazz 目标类
+     * @param <E>   目标类
+     * @return 目标类的实例
+     */
+    public static <E> E parse(String json, Class<E> clazz) {
+        try {
+            return getObjectMapper().readValue(json, clazz);
+        } catch (JsonProcessingException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    /**
+     * <h2>{@code Json} 序列化到字符串</h2>
+     *
+     * @param object 对象
+     * @return 字符串
+     */
+    public static String toString(Object object) {
+        try {
+            return getObjectMapper().writeValueAsString(object);
+        } catch (JsonProcessingException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    /**
+     * <h2>获取一个配置后的 {@code ObjectMapper}</h2>
+     *
+     * @return {@code ObjectMapper}
+     */
+    private static ObjectMapper getObjectMapper() {
+        if (Objects.isNull(objectMapper)) {
+            objectMapper = new ObjectMapper();
+            // 忽略未声明的属性
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            // 忽略值为null的属性
+            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+            // 忽略没有属性的类
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        }
+        return objectMapper;
     }
 
     /**
@@ -98,27 +151,6 @@ public class AirJson<R extends AirJson<R>> {
     }
 
     /**
-     * <h2>{@code ObjectMapper}</h2>
-     */
-    private static ObjectMapper objectMapper;
-
-    /**
-     * <h2>{@code Json} 反序列化到指定类</h2>
-     *
-     * @param json  字符串
-     * @param clazz 目标类
-     * @param <E>   目标类
-     * @return 目标类的实例
-     */
-    public static <E> E parse(String json, Class<E> clazz) {
-        try {
-            return getObjectMapper().readValue(json, clazz);
-        } catch (JsonProcessingException exception) {
-            throw new RuntimeException(exception);
-        }
-    }
-
-    /**
      * <h2>设置响应数据</h2>
      *
      * @param data 响应数据
@@ -127,37 +159,5 @@ public class AirJson<R extends AirJson<R>> {
     public AirJson<R> setData(String data) {
         this.data = data;
         return this;
-    }
-
-    /**
-     * <h2>{@code Json} 序列化到字符串</h2>
-     *
-     * @param object 对象
-     * @return 字符串
-     */
-    public static String toString(Object object) {
-        try {
-            return getObjectMapper().writeValueAsString(object);
-        } catch (JsonProcessingException exception) {
-            throw new RuntimeException(exception);
-        }
-    }
-
-    /**
-     * <h2>获取一个配置后的 {@code ObjectMapper}</h2>
-     *
-     * @return {@code ObjectMapper}
-     */
-    private static ObjectMapper getObjectMapper() {
-        if (Objects.isNull(objectMapper)) {
-            objectMapper = new ObjectMapper();
-            // 忽略未声明的属性
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            // 忽略值为null的属性
-            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-            // 忽略没有属性的类
-            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        }
-        return objectMapper;
     }
 }
