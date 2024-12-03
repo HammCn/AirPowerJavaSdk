@@ -8,7 +8,7 @@ import java.util.Base64;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * <h1>AirPower AES</h1>
+ * <h1>AirAes</h1>
  *
  * @author Hamm.cn
  */
@@ -24,14 +24,14 @@ public class AirAes {
     private static final String AES_CBC_PKCS5_PADDING = "AES/CBC/PKCS5Padding";
 
     /**
-     * <h2>密钥</h2>
-     */
-    private byte[] key;
-
-    /**
      * <h2>偏移向量</h2>
      */
     private static final byte[] IV = "0000000000000000".getBytes(UTF_8);
+
+    /**
+     * <h2>密钥</h2>
+     */
+    private byte[] key;
 
     /**
      * <h2>算法</h2>
@@ -39,10 +39,19 @@ public class AirAes {
     private String algorithm = AES_CBC_PKCS5_PADDING;
 
     /**
+     * <h2>初始化</h2>
+     *
+     * @return AES
+     */
+    public static AirAes create() {
+        return new AirAes();
+    }
+
+    /**
      * <h2>设置算法</h2>
      *
      * @param algorithm 算法
-     * @return AesUtil
+     * @return 当前实例
      */
     public AirAes setAlgorithm(String algorithm) {
         this.algorithm = algorithm;
@@ -53,7 +62,7 @@ public class AirAes {
      * <h2>设置密钥</h2>
      *
      * @param key 密钥
-     * @return AesUtil
+     * @return 当前实例
      */
     public AirAes setKey(String key) {
         this.key = Base64.getDecoder().decode(key);
@@ -108,14 +117,5 @@ public class AirAes {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    /**
-     * <h2>初始化</h2>
-     *
-     * @return AES
-     */
-    public static AirAes create() {
-        return new AirAes();
     }
 }

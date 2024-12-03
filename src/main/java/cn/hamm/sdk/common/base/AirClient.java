@@ -9,11 +9,16 @@ import cn.hamm.sdk.common.util.AirRsa;
 import java.util.Objects;
 
 /**
- * <h1>AirPower Client</h1>
+ * <h1>AirClient</h1>
  *
  * @author Hamm.cn
  */
 public class AirClient {
+    /**
+     * <h2>配置</h2>
+     */
+    private AirConfig config;
+
     /**
      * <h2>禁止外部实例化</h2>
      */
@@ -21,9 +26,20 @@ public class AirClient {
     }
 
     /**
-     * <h2>配置</h2>
+     * <h2>创建AirPowerClient</h2>
+     *
+     * @param config 应用
+     * @return AirPowerClient
+     * @see AirConfig#create()
      */
-    private AirConfig config;
+    public static AirClient create(AirConfig config) {
+        if (Objects.isNull(config)) {
+            throw new IllegalArgumentException("无效的AirConfig配置");
+        }
+        AirClient client = new AirClient();
+        client.config = config;
+        return client;
+    }
 
     /**
      * <h2>发起请求</h2>
@@ -111,22 +127,6 @@ public class AirClient {
             default:
         }
         return content;
-    }
-
-    /**
-     * <h2>创建AirPowerClient</h2>
-     *
-     * @param config 应用
-     * @return AirPowerClient
-     * @see AirConfig#create()
-     */
-    public static AirClient create(AirConfig config) {
-        if (Objects.isNull(config)) {
-            throw new IllegalArgumentException("无效的AirConfig配置");
-        }
-        AirClient client = new AirClient();
-        client.config = config;
-        return client;
     }
 
     /**

@@ -5,7 +5,7 @@ import cn.hamm.sdk.common.util.AirRandom;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
- * <h1>模型基类</h1>
+ * <h1>AirRequest</h1>
  *
  * @author Hamm.cn
  */
@@ -16,15 +16,29 @@ public class AirRequest {
     private String appKey;
 
     /**
-     * <h2>设置AppKey</h2>
-     *
-     * @param appKey AppKey
-     * @return AirRequest
+     * <h2>版本号</h2>
      */
-    public final AirRequest setAppKey(String appKey) {
-        this.appKey = appKey;
-        return this;
-    }
+    private int version = 10000;
+
+    /**
+     * <h2>请求毫秒时间戳</h2>
+     */
+    private long timestamp = System.currentTimeMillis();
+
+    /**
+     * <h2>加密后的业务数据</h2>
+     */
+    private String content;
+
+    /**
+     * <h2>Nonce</h2>
+     */
+    private String nonce = AirRandom.randomString();
+
+    /**
+     * <h2>签名字符串</h2>
+     */
+    private String signature;
 
     /**
      * <h2>获取AppKey</h2>
@@ -36,18 +50,13 @@ public class AirRequest {
     }
 
     /**
-     * <h2>版本号</h2>
-     */
-    private int version = 10000;
-
-    /**
-     * <h2>设置版本号</h2>
+     * <h2>设置AppKey</h2>
      *
-     * @param version 版本号
-     * @return AirRequest
+     * @param appKey AppKey
+     * @return 当前实例
      */
-    public final AirRequest setVersion(int version) {
-        this.version = version;
+    public final AirRequest setAppKey(String appKey) {
+        this.appKey = appKey;
         return this;
     }
 
@@ -61,18 +70,13 @@ public class AirRequest {
     }
 
     /**
-     * <h2>请求毫秒时间戳</h2>
-     */
-    private long timestamp = System.currentTimeMillis();
-
-    /**
-     * <h2>设置请求毫秒时间戳</h2>
+     * <h2>设置版本号</h2>
      *
-     * @param timestamp 请求毫秒时间戳
-     * @return AirRequest
+     * @param version 版本号
+     * @return 当前实例
      */
-    public final AirRequest setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public final AirRequest setVersion(int version) {
+        this.version = version;
         return this;
     }
 
@@ -86,18 +90,13 @@ public class AirRequest {
     }
 
     /**
-     * <h2>加密后的业务数据</h2>
-     */
-    private String content;
-
-    /**
-     * <h2>设置加密后的业务数据</h2>
+     * <h2>设置请求毫秒时间戳</h2>
      *
-     * @param content 加密后的业务数据
-     * @return AirRequest
+     * @param timestamp 请求毫秒时间戳
+     * @return 当前实例
      */
-    public final AirRequest setContent(String content) {
-        this.content = content;
+    public final AirRequest setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
         return this;
     }
 
@@ -111,18 +110,13 @@ public class AirRequest {
     }
 
     /**
-     * <h2>Nonce</h2>
-     */
-    private String nonce = AirRandom.randomString();
-
-    /**
-     * <h2>设置Nonce</h2>
+     * <h2>设置加密后的业务数据</h2>
      *
-     * @param nonce Nonce
-     * @return AirRequest
+     * @param content 加密后的业务数据
+     * @return 当前实例
      */
-    public final AirRequest setNonce(String nonce) {
-        this.nonce = nonce;
+    public final AirRequest setContent(String content) {
+        this.content = content;
         return this;
     }
 
@@ -136,18 +130,13 @@ public class AirRequest {
     }
 
     /**
-     * <h2>签名字符串</h2>
-     */
-    private String signature;
-
-    /**
-     * <h2>设置签名字符串</h2>
+     * <h2>设置Nonce</h2>
      *
-     * @param signature 签名字符串
-     * @return AirRequest
+     * @param nonce Nonce
+     * @return 当前实例
      */
-    public final AirRequest setSignature(String signature) {
-        this.signature = signature;
+    public final AirRequest setNonce(String nonce) {
+        this.nonce = nonce;
         return this;
     }
 
@@ -158,6 +147,17 @@ public class AirRequest {
      */
     public final String getSignature() {
         return signature;
+    }
+
+    /**
+     * <h2>设置签名字符串</h2>
+     *
+     * @param signature 签名字符串
+     * @return 当前实例
+     */
+    public final AirRequest setSignature(String signature) {
+        this.signature = signature;
+        return this;
     }
 
     /**

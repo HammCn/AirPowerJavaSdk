@@ -1,7 +1,7 @@
 package cn.hamm.sdk.common.base;
 
 /**
- * <h1>AirPower Constant</h1>
+ * <h1>AirConstant</h1>
  *
  * @author Hamm.cn
  */

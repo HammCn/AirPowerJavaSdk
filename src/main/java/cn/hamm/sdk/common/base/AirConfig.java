@@ -3,19 +3,12 @@ package cn.hamm.sdk.common.base;
 import cn.hamm.sdk.common.enums.AirArithmetic;
 
 /**
- * <h1>AirPower Config</h1>
+ * <h1>AirConfig</h1>
  *
  * @author Hamm.cn
  * @apiNote 可在管理后台 -> 开放能力 -> 我的应用 中创建并获取相关配置
  */
 public class AirConfig {
-    /**
-     * <h2>禁止外部实例化</h2>
-     */
-    private AirConfig() {
-
-    }
-
     /**
      * <h2>网关地址</h2>
      */
@@ -40,6 +33,22 @@ public class AirConfig {
      * <h2>公钥</h2>
      */
     private String publicKey;
+
+    /**
+     * <h2>禁止外部实例化</h2>
+     */
+    private AirConfig() {
+
+    }
+
+    /**
+     * <h2>创建当前实例</h2>
+     *
+     * @return 创建一个当前实例
+     */
+    public static AirConfig create() {
+        return new AirConfig();
+    }
 
     /**
      * <h2>获取AppKey</h2>
@@ -119,15 +128,6 @@ public class AirConfig {
     public AirConfig setPublicKey(String publicKey) {
         this.publicKey = publicKey;
         return this;
-    }
-
-    /**
-     * <h2>创建当前实例</h2>
-     *
-     * @return 创建一个当前实例
-     */
-    public static AirConfig create() {
-        return new AirConfig();
     }
 
     /**

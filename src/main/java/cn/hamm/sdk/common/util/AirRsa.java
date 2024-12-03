@@ -7,7 +7,7 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 /**
- * <h1>Air RSA</h1>
+ * <h1>AirRsa</h1>
  *
  * @author Hamm.cn
  */
@@ -40,7 +40,7 @@ public class AirRsa {
      * <h2>设置公钥</h2>
      *
      * @param publicKey 公钥
-     * @return 实例
+     * @return 当前实例
      */
     public final AirRsa setPublicKey(String publicKey) {
         this.publicKey = publicKey;
@@ -140,10 +140,10 @@ public class AirRsa {
     private byte[] rsaDoFinal(Cipher cipher, byte[] sourceBytes, int blockSize) throws Exception {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         int inputLength = sourceBytes.length;
-        int currentOffSet = 0;
         byte[] cacheBytes;
         int index = 0;
         // 对数据分段解密
+        int currentOffSet = 0;
         while (inputLength - currentOffSet > 0) {
             cacheBytes = cipher.doFinal(sourceBytes, currentOffSet, Math.min(inputLength - currentOffSet, blockSize));
             byteArrayOutputStream.write(cacheBytes, 0, cacheBytes.length);

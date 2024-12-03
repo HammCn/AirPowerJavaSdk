@@ -11,12 +11,17 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * <h1>{@code AirPower Json}</h1>
+ * <h1>AirJson</h1>
  *
  * @param <R> 响应模型
  * @author Hamm.cn
  */
 public class AirJson<R extends AirJson<R>> {
+    /**
+     * <h2>{@code ObjectMapper}</h2>
+     */
+    private static ObjectMapper objectMapper;
+
     /**
      * <h2>错误代码</h2>
      */
@@ -49,60 +54,6 @@ public class AirJson<R extends AirJson<R>> {
     }
 
     /**
-     * <h2>获取错误代码</h2>
-     *
-     * @return 错误代码
-     */
-    public int getCode() {
-        return code;
-    }
-
-    /**
-     * <h2>设置错误代码</h2>
-     *
-     * @param code 错误代码
-     * @return Response
-     */
-    public AirJson<R> setCode(int code) {
-        this.code = code;
-        return this;
-    }
-
-    /**
-     * <h2>获取错误信息</h2>
-     *
-     * @return 错误信息
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * <h2>设置错误信息</h2>
-     *
-     * @param message 错误信息
-     * @return Response
-     */
-    public AirJson<R> setMessage(String message) {
-        this.message = message;
-        return this;
-    }
-
-    /**
-     * <h2>获取响应数据</h2>
-     *
-     * @return 响应数据
-     */
-    public String getData() {
-        return data;
-    }
-
-    /**
-     * <h2>{@code ObjectMapper}</h2>
-     */
-    private static ObjectMapper objectMapper;
-
-    /**
      * <h2>{@code Json} 反序列化到指定类</h2>
      *
      * @param json  字符串
@@ -116,17 +67,6 @@ public class AirJson<R extends AirJson<R>> {
         } catch (JsonProcessingException exception) {
             throw new RuntimeException(exception);
         }
-    }
-
-    /**
-     * <h2>设置响应数据</h2>
-     *
-     * @param data 响应数据
-     * @return Response
-     */
-    public AirJson<R> setData(String data) {
-        this.data = data;
-        return this;
     }
 
     /**
@@ -159,5 +99,65 @@ public class AirJson<R extends AirJson<R>> {
             objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         }
         return objectMapper;
+    }
+
+    /**
+     * <h2>获取错误代码</h2>
+     *
+     * @return 错误代码
+     */
+    public int getCode() {
+        return code;
+    }
+
+    /**
+     * <h2>设置错误代码</h2>
+     *
+     * @param code 错误代码
+     * @return 当前实例
+     */
+    public AirJson<R> setCode(int code) {
+        this.code = code;
+        return this;
+    }
+
+    /**
+     * <h2>获取错误信息</h2>
+     *
+     * @return 错误信息
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * <h2>设置错误信息</h2>
+     *
+     * @param message 错误信息
+     * @return 当前实例
+     */
+    public AirJson<R> setMessage(String message) {
+        this.message = message;
+        return this;
+    }
+
+    /**
+     * <h2>获取响应数据</h2>
+     *
+     * @return 响应数据
+     */
+    public String getData() {
+        return data;
+    }
+
+    /**
+     * <h2>设置响应数据</h2>
+     *
+     * @param data 响应数据
+     * @return 当前实例
+     */
+    public AirJson<R> setData(String data) {
+        this.data = data;
+        return this;
     }
 }

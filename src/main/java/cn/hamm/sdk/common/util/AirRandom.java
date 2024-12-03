@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * <h1>Air Random</h1>
+ * <h1>AirRandom</h1>
  *
  * @author Hamm.cn
  */
